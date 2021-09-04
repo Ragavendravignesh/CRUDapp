@@ -1,25 +1,31 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Axios from 'axios'
 import Display from './Components/Display';
 import AddEmployee from './Components/AddEmployee';
 import UpdateEmployee from './Components/UpdateEmployee';
+import Alert from './Components/Alert';
 
 const App = () => {
   const [employee, setEmployee] = useState([])
   const [updateDetails, setUpdateDetails] = useState({})
   const [showUpdate, setShowUpdate] = useState(false);
+  const [showUpdateAlert, setShowUpdateAlert] = useState(false);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const [showAddAlert, setShowAddAlert] = useState(false);
 
   const add = useCallback(async (data) => {
     console.log(data)
     await Axios.post('http://localhost:3000/employee', data, {
       headers: {
         'Content-Type': 'application/json',
-      }})
+      }}).then (setShowAddAlert(true));
       getEmployee()
+
   })
 
   const deleteEmployee = useCallback(async (id) => {
-    await Axios.delete(`http://localhost:3000/employee/${id}`)
+    await Axios.delete(`http://localhost:3000/employee/${id}`).then(setShowDeleteAlert(true));
     getEmployee()
   })
 
@@ -33,7 +39,8 @@ const App = () => {
       headers: {
         'Content-Type': 'application/json'
       }
-    })
+    }).then(setShowUpdateAlert(true));
+
     getEmployee()
     setShowUpdate(false);
   })
@@ -49,6 +56,9 @@ const App = () => {
 
   return (
     <div>
+      {showUpdateAlert && <Alert variant="success" message="Employee details updated" idx="updateAlert" />}
+      {showDeleteAlert && <Alert variant="success" message="Employee details deleted" idx="deleteAlert" />}
+      {showAddAlert && <Alert variant="success" message="Employee details added" idx="addAlert" />}
       <Display
         employee={employee}
         deleteEmployee={deleteEmployee}
