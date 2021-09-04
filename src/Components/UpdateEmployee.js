@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-
+import { Form, Button } from 'react-bootstrap';
+ 
 const UpdateEmployee = ({empData, updateEmp}) => {
     const [name, setName] = useState(empData.name)
     const [email, setEmail] = useState(empData.email)
@@ -14,43 +15,26 @@ const updateHandler = (e) => {
 }
 
   return (
-    <div>
-      <form onSubmit={updateHandler}>
-        <input
-          type='text'
-          placeholder='Enter name'
-          id='name'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <br />
-        <input
-          type='text'
-          placeholder='Enter email'
-          id='email'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br />
-        <input
-          type='text'
-          placeholder='Enter designation'
-          id='designation'
-          value={designation}
-          onChange={(e) => setDesignation(e.target.value)}
-        />
-        <br />
-        <input
-          type='number'
-          placeholder='Enter salary'
-          id='salary'
-          value={salary}
-          onChange={(e) => setSalary(e.target.value)}
-        />
-        <br />
-        <button type='submit'>Update</button>
-      </form>
-    </div>
+      <Form onSubmit={updateHandler}>
+        <Form.Group className="mb-3" controlId="name">
+          <Form.Label>Enter name</Form.Label>
+          <Form.Control type="text" placeholder="Enter name" value={name} onChange={e => setName(e.target.value)}/>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="email">
+          <Form.Label>Enter email</Form.Label>
+          <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)}/>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="designation">
+          <Form.Label>Enter designation</Form.Label>
+          <Form.Control type="text" placeholder="Enter designation" value={designation} onChange={e => setDesignation(e.target.value)}/>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="salary">
+          <Form.Label>Enter Salary</Form.Label>
+          <Form.Control type="text" placeholder="Enter salary" value={salary} onChange={e => setSalary(e.target.value)}/>
+        </Form.Group>
+        
+        <Button variant="success" type="submit">Update</Button>
+      </Form>
   )
 }
 
