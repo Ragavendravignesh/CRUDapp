@@ -10,6 +10,7 @@ import Alert from './Components/Alert'
 const App = () => {
   const [employee, setEmployee] = useState([])
   const [updateDetails, setUpdateDetails] = useState({})
+  const [newId, setNewId] = useState();
   const [showUpdate, setShowUpdate] = useState(false)
   const [showUpdateAlert, setShowUpdateAlert] = useState(false)
   const [showDeleteAlert, setShowDeleteAlert] = useState(false)
@@ -49,8 +50,10 @@ const App = () => {
   })
 
   const getEmployee = useCallback(async () => {
-    const response = await Axios.get('http://localhost:3000/employee')
-    setEmployee(response.data)
+    const response = await Axios.get('http://localhost:3000/employee').then((res) => {
+      setEmployee(res.data);
+      setNewId(res.data[res.data.length-1].id + 1);
+    });
   })
 
   useEffect(() => {
@@ -91,9 +94,9 @@ const App = () => {
           </Col>
           <Col >
             {showUpdate ? (
-              <UpdateEmployee empData={updateDetails} updateEmp={updateEmp} />
+              <UpdateEmployee empData={updateDetails} updateEmp={updateEmp}/>
             ) : (
-              <AddEmployee add={add} empId={employee.length + 1} />
+              <AddEmployee add={add} empId={newId}/>
             )}
           </Col>
         </Row>

@@ -1,18 +1,18 @@
 {
   "employee": [
     {
-      "id": 1,
-      "name": "Ragavendra",
-      "email": "ragavendra@gmail.com",
-      "designation": "System engineer",
-      "salary": "25000"
-    },
-    {
       "id": 2,
       "name": "Madhan",
       "email": "madhan@gmail.com",
       "designation": "Technical Lead",
       "salary": "32000"
+    },
+    {
+      "id": 3,
+      "name": "Ragav",
+      "email": "ragav@gmail.com",
+      "designation": "System engineer",
+      "salary": "1244"
     }
   ]
 }
