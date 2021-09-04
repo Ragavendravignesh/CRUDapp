@@ -1,4 +1,6 @@
 import React from 'react'
+import { Card, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
+import './display.css';
 
 const Display = ({ employee, deleteEmployee, updateEmployee}) => {
   const deleteHandler = (id) => {
@@ -11,14 +13,20 @@ const Display = ({ employee, deleteEmployee, updateEmployee}) => {
   return (
     <div>
       {employee.map((item, id) => (
-        <div key={id}>
-          <h1>{item.name}</h1>
-          <p>{item.email}</p>
-          <p>{item.designation}</p>
-          <p>{item.salary}</p>
-          <button id={`btn-${id}`} onClick={() => deleteHandler(item.id)}>Delete</button>
-          <button id={`btn-${id}`} onClick={() => updateHandler(item)}>Update</button>
-        </div>
+        <Card style={{ width: '18rem' }} key={id} className="mt-3">
+          <Card.Body>
+            <Card.Title className="text-center">{item.name}</Card.Title>
+            <Card.Subtitle className="mb-1 text-muted text-center">{item.email}</Card.Subtitle>
+            <ListGroup className="list-group-flush">
+              <ListGroupItem>Designation: {item.designation}</ListGroupItem>
+              <ListGroupItem>Salary: {item.salary}</ListGroupItem>
+            </ListGroup>
+          </Card.Body>
+          <Card.Footer>
+          <Button variant="danger" id={`btn-${id}-delete`} onClick={() => deleteHandler(item.id)}>Delete</Button>
+          <Button variant="primary" id={`btn-${id}-update`} onClick={() => updateHandler(item)} className="ml-2">Update</Button>
+          </Card.Footer>
+        </Card>
       ))}
     </div>
   )
